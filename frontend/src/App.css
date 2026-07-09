@@ -1,0 +1,169 @@
+/* ---------- RESET ---------- */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#0f172a;
+    color:white;
+}
+
+/* ---------- APP ---------- */
+
+.app{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+/* ---------- NAVBAR ---------- */
+
+.navbar{
+    height:70px;
+    background:#111827;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 25px;
+    border-bottom:1px solid #1f2937;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.nav-buttons{
+    display:flex;
+    gap:12px;
+}
+
+.nav-buttons button{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    background:#1e293b;
+    color:white;
+    font-size:18px;
+    transition:.3s;
+}
+
+.nav-buttons button:hover{
+    background:#2563eb;
+}
+
+/* ---------- MAIN ---------- */
+
+.container{
+    flex:1;
+    display:flex;
+}
+
+/* ---------- SIDEBAR ---------- */
+
+.sidebar{
+    width:260px;
+    background:#111827;
+    padding:20px;
+    border-right:1px solid #1f2937;
+}
+
+.new-chat{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    margin-bottom:25px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar li{
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.sidebar li:hover{
+    background:#1e293b;
+}
+
+/* ---------- CHAT ---------- */
+
+.chat-area{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+
+.messages{
+    flex:1;
+    padding:30px;
+    overflow-y:auto;
+}
+
+.bot{
+    max-width:650px;
+    background:#1e293b;
+    padding:18px;
+    border-radius:14px;
+    line-height:1.6;
+}
+
+/* ---------- INPUT ---------- */
+
+.input-area{
+    height:80px;
+    background:#111827;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:15px 20px;
+    border-top:1px solid #1f2937;
+}
+
+.input-area input{
+    flex:1;
+    height:50px;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    padding:0 15px;
+    font-size:16px;
+    background:#1e293b;
+    color:white;
+}
+
+.input-area button{
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+    background:#1e293b;
+    color:white;
+    transition:.3s;
+}
+
+.input-area button:hover{
+    background:#2563eb;
+}
+
+.send{
+    background:#2563eb !important;
+}
