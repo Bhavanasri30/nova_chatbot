@@ -1,19 +1,39 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import "./Login.css";
+import "./login.css";
+import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const handleLogin = async (e) => {
+  e.preventDefault();
 
-    // Backend connection will be added later
+  try {
+    const res = await axios.post(
+      "http://localhost:5000/api/auth/login",
+      {
+        email,
+        password,
+      }
+    );
+
+    localStorage.setItem("userId", res.data.user.id);
+    localStorage.setItem("userName", res.data.user.name);
+
+    alert("Login Successful!");
+
     navigate("/chat");
-  };
-
+  } catch (error) {
+    alert(
+      error.response?.data?.message || "Login Failed"
+    );
+  }
+};
   return (
     <div className="login-container">
 
@@ -29,21 +49,25 @@ function Login() {
 
           <label>Email</label>
 
-          <input
-            type="email"
-            placeholder="Enter your email"
-            required
-          />
+<input
+  type="email"
+  placeholder="Enter your email"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  required
+/>
 
           <label>Password</label>
 
           <div className="password-box">
 
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Enter your password"
-              required
-            />
+<input
+  type={showPassword ? "text" : "password"}
+  placeholder="Enter your password"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  required
+/>
 
             <span
               onClick={() => setShowPassword(!showPassword)}

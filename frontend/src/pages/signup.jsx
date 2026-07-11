@@ -1,23 +1,57 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import "./Signup.css";
+import axios from "axios";
+import "./signup.css";
 
 function Signup() {
-
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSignup = (e) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSignup = async (e) => {
     e.preventDefault();
 
-    // Backend connection later
-    navigate("/chat");
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/signup",
+        {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }
+      );
+
+      alert(res.data.message);
+
+      navigate("/login");
+    } catch (error) {
+      alert(
+        error.response?.data?.message || "Signup failed"
+      );
+    }
   };
 
   return (
     <div className="signup-container">
-
       <div className="signup-card">
 
         <h1>🤖 Nova AI</h1>
@@ -32,7 +66,10 @@ function Signup() {
 
           <input
             type="text"
+            name="name"
             placeholder="Enter your full name"
+            value={formData.name}
+            onChange={handleChange}
             required
           />
 
@@ -40,7 +77,10 @@ function Signup() {
 
           <input
             type="email"
+            name="email"
             placeholder="Enter your email"
+            value={formData.email}
+            onChange={handleChange}
             required
           />
 
@@ -50,13 +90,14 @@ function Signup() {
 
             <input
               type={showPassword ? "text" : "password"}
+              name="password"
               placeholder="Create password"
+              value={formData.password}
+              onChange={handleChange}
               required
             />
 
-            <span
-              onClick={() => setShowPassword(!showPassword)}
-            >
+            <span onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? "🙈" : "👁️"}
             </span>
 
@@ -65,8 +106,11 @@ function Signup() {
           <label>Confirm Password</label>
 
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
+            name="confirmPassword"
             placeholder="Confirm password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
             required
           />
 
@@ -77,17 +121,11 @@ function Signup() {
         </form>
 
         <p className="login-text">
-
           Already have an account?
-
-          <Link to="/login">
-            Login
-          </Link>
-
+          <Link to="/login"> Login</Link>
         </p>
 
       </div>
-
     </div>
   );
 }
