@@ -5,7 +5,7 @@ A full-stack AI chatbot application that provides intelligent conversations usin
 ## 🌐 Live Demo
 
 **Frontend:**  
-nova-chatbot-zihx-mj7qj36a7-novaaichatbot.vercel.app
+https://nova-chatbot-zihx-mj7qj36a7-novaaichatbot.vercel.app
 
 **Backend API:**  
 https://nova-chatbot-kwt6.onrender.com
