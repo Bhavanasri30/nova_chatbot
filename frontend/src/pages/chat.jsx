@@ -29,7 +29,7 @@ function Chat() {
 
   const fetchChatHistory = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/history");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/history`);
       setChatHistory(res.data.chats || []);
     } catch (err) {
       console.log(err);
@@ -38,7 +38,7 @@ function Chat() {
 
   const createChat = async (title = "New Chat") => {
     try {
-      const res = await axios.post("http://localhost:5000/api/history", {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/history`, {
         title,
       });
 
@@ -54,7 +54,7 @@ function Chat() {
 
   const deleteChat = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/history/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/history/${id}`);
 
       if (currentChatId === id) {
         setMessages([]);
@@ -69,7 +69,7 @@ function Chat() {
 
   const loadChat = async (id) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/history/${id}`);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/history/${id}`);
 
       setCurrentChatId(id);
 
@@ -144,7 +144,7 @@ function Chat() {
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    await axios.post(`http://localhost:5000/api/history/${chatId}/message`, {
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/history/${chatId}/message`, {
       sender: "user",
       text: messageText,
     });
@@ -153,7 +153,7 @@ function Chat() {
     setSidebarOpen(false);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/chat", {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/chat`, {
         message: messageText,
       });
 
@@ -167,7 +167,7 @@ function Chat() {
       };
 
       setMessages((prev) => [...prev, aiMessage]);
-      await axios.post(`http://localhost:5000/api/history/${chatId}/message`, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/history/${chatId}/message`, {
         sender: "assistant",
         text: aiMessage.content,
       });
